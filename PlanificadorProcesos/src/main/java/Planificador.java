@@ -42,11 +42,12 @@ public class Planificador {
         planificadorLista.clear();
         List<List<String>> listaARetornar = new ArrayList<>();
         for(Proceso proceso : colaProcesos){
-            proceso.ejecutar(proceso.getRafaga());
             for (int i = 0; i < proceso.getRafaga(); i++){
                 planificadorLista.add(proceso.getNombre());
             }
-
+            proceso.ejecutar(proceso.getRafaga());
+        }
+        for (Proceso proceso : colaProcesos){
             //agregar todas a la lista de listas
             List<String> lista = new ArrayList<>();
             lista.add("Tiempo de espera: " + tiempoDeEspera(proceso));
@@ -64,13 +65,21 @@ public class Planificador {
     public int tiempoDeEspera(Proceso proceso){
         int espera = 0;
         int tiempoActual = 0;
+        boolean estaEsperando = true;
+        int ultimaEjecucion = proceso.getLlegada();
         for (String p : planificadorLista){
-            if (proceso.getNombre().equals(p)){
-                if (tiempoActual >= proceso.getLlegada()){
-                    espera += tiempoActual - proceso.getLlegada();
-                    tiempoActual += proceso.getRafaga();
-                }else tiempoActual = proceso.getLlegada() + proceso.getRafaga();
+            if (tiempoActual >= proceso.getLlegada()){
+                if (p.equals(proceso.getNombre())){
+                    if (estaEsperando){
+                        espera += tiempoActual - ultimaEjecucion;
+                        estaEsperando = false;
+                    }
+                }else if (!estaEsperando){
+                    estaEsperando = true;
+                    ultimaEjecucion = tiempoActual;
+                }
             }
+            tiempoActual++;
         }
         return espera;
     }
