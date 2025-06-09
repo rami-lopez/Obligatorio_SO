@@ -48,7 +48,7 @@ public class Proceso {
                 '}';
     }
 
-    public void hacerProceso(int rafagaPedida){
-        this.setRafaga(getRafaga() - rafagaPedida);
+    public void ejecutar(int unidadesDeTiempo) {
+        this.rafaga -= unidadesDeTiempo;
     }
 }

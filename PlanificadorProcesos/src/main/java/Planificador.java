@@ -9,6 +9,12 @@ public class Planificador {
         colaProcesos.add(proceso);
     }
 
+    public void verProcesos(){
+        for (Proceso proceso : colaProcesos){
+            System.out.println(proceso.toString());
+        }
+    }
+
     public int setSumaDeProcesos() {
         // Para establecer la capacidad de la lista
         int suma = 0;
@@ -29,13 +35,14 @@ public class Planificador {
                 stackPrioridad.add(mayorPrioridad);
             }
         }
+        return null; // por ahora
     }
 
     public List<List<String>> FIFO(){
         planificadorLista.clear();
         List<List<String>> listaARetornar = new ArrayList<>();
         for(Proceso proceso : colaProcesos){
-            proceso.hacerProceso(proceso.getRafaga());
+            proceso.ejecutar(proceso.getRafaga());
             for (int i = 0; i < proceso.getRafaga(); i++){
                 planificadorLista.add(proceso.getNombre());
             }
@@ -52,7 +59,7 @@ public class Planificador {
         return listaARetornar;
     }
 
-    public List<List<String>>
+    // public List<List<String>>
 
     public int tiempoDeEspera(Proceso proceso){
         int espera = 0;
