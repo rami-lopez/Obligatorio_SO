@@ -82,6 +82,7 @@ public class Planificador {
     public List<List<String>> RR(int quantum){
         planificadorLista.clear();
         List<List<String>> listaARetornar = new ArrayList<>();
+        bubbleSortPorLlegada(colaProcesos);
         Queue<Proceso> colaRR = new LinkedList<>(colaProcesos);
 
         //int tiempo = 0;
