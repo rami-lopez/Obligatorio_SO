@@ -3,12 +3,14 @@ public class Proceso {
     private Integer prioridad;
     private int rafaga;
     private int llegada;
+    private int rafagaUltima;
 
     public Proceso(String nombre, Integer prioridad, int rafaga, int llegada) {
         this.nombre = nombre;
         this.prioridad = prioridad;
         this.rafaga = rafaga;
         this.llegada = llegada;
+        this.rafagaUltima = rafaga;
     }
 
     public String getNombre() {
@@ -46,6 +48,10 @@ public class Proceso {
                 ", prioridad=" + prioridad +
                 ", rafaga=" + rafaga +
                 '}';
+    }
+
+    public int getRafagaUltima() {
+        return rafagaUltima;
     }
 
     public void ejecutar(int unidadesDeTiempo) {

@@ -50,6 +50,7 @@ public class Planificador {
         for (Proceso proceso : colaProcesos){
             //agregar todas a la lista de listas
             List<String> lista = new ArrayList<>();
+            lista.add(proceso.getNombre());
             lista.add("Tiempo de espera: " + tiempoDeEspera(proceso));
             lista.add("Tiempo de retorno: " + tiempoDeRetorno(proceso));
             lista.add("Tiempo de respuesta: " + tiempoDeRespuesta(proceso));
@@ -85,7 +86,7 @@ public class Planificador {
     }
 
     public int tiempoDeRetorno(Proceso proceso){
-        return tiempoDeEspera(proceso) + proceso.getRafaga();
+        return (tiempoDeEspera(proceso) + proceso.getRafagaUltima());
     }
 
     public int tiempoDeRespuesta(Proceso proceso){

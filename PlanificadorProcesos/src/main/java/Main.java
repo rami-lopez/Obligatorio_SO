@@ -17,5 +17,6 @@ public class Main {
 
         planificador.verProcesos();
         System.out.println(planificador.FIFO());
+        System.out.println(p1.getRafagaUltima());
     }
 }
