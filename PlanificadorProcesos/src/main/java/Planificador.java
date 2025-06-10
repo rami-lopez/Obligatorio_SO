@@ -1,9 +1,8 @@
 import java.util.*;
 
 public class Planificador {
-    private Queue<Proceso> colaProcesos = new PriorityQueue<>(Comparator.comparingInt(Proceso::getLlegada));
+    private List<Proceso> colaProcesos = new ArrayList<>();
     private List<String> planificadorLista = new ArrayList<>(setSumaDeProcesos());
-    private int contador;
 
     public void agregarAColaProcesos(Proceso proceso){
         colaProcesos.add(proceso);
@@ -11,8 +10,12 @@ public class Planificador {
 
     public void verProcesos(){
         for (Proceso proceso : colaProcesos){
-            System.out.println(proceso.toString());
+            System.out.println(proceso.getNombre());
         }
+    }
+
+    public List<Proceso> getColaProcesos() {
+        return colaProcesos;
     }
 
     public int setSumaDeProcesos() {
@@ -22,6 +25,29 @@ public class Planificador {
             suma += proceso.getRafaga();
         }
         return suma;
+    }
+
+    public void bubbleSortPorLlegada(List<Proceso> listaProcesos) {
+        int n = listaProcesos.size();
+        boolean huboIntercambio;
+
+        for (int i = 0; i < n - 1; i++) {
+            huboIntercambio = false;
+
+            for (int j = 0; j < n - 1 - i; j++) {
+                Proceso p1 = listaProcesos.get(j);
+                Proceso p2 = listaProcesos.get(j + 1);
+
+                if (p1.getLlegada() > p2.getLlegada()) {
+                    // Intercambiar
+                    listaProcesos.set(j, p2);
+                    listaProcesos.set(j + 1, p1);
+                    huboIntercambio = true;
+                }
+            }
+
+            if (!huboIntercambio) break;
+        }
     }
 
     public List<List<String>> asignacionPridoridades(){
