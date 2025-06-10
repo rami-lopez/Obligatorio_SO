@@ -1,4 +1,4 @@
-﻿package planificadores;
+package planificadores;
 
 import planificadores.proceso.Proceso;
 

@@ -1,4 +1,4 @@
-﻿package planificadores.tipos;
+package planificadores.tipos;
 
 import planificadores.Planificador;
 import planificadores.proceso.Proceso;
