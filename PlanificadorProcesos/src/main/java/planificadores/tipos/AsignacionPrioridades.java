@@ -17,7 +17,7 @@ public class AsignacionPrioridades extends Planificador {
             planificadorLista.add(proceso.getNombre());
             //agregar todas a la lista de listas
             List<String> lista2 = new ArrayList<>();
-            lista2.add(proceso.getNombre());
+            lista2.add("Proceso " + proceso.getNombre());
             lista2.add(proceso.getPrioridad().toString());
             lista2.add("Tiempo de espera: " + tiempoDeEspera(proceso));
             lista2.add("Tiempo de retorno: " + tiempoDeRetorno(proceso));

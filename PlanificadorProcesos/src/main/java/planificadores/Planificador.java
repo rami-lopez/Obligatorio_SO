@@ -14,11 +14,9 @@ public class Planificador {
     }
 
     public void verProcesos(){
-        System.out.println("\n");
         for (Proceso proceso : colaProcesos){
             System.out.println(proceso.getNombre());
         }
-        System.out.println("\n");
     }
 
     // Metodo para limpiar la cola de prioridades (para nuevos tipos de planificadores)

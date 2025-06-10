@@ -20,7 +20,7 @@ public class FIFO extends Planificador {
         for (Proceso proceso : colaProcesos){
             //agregar todas a la lista de listas
             List<String> lista = new ArrayList<>();
-            lista.add(proceso.getNombre());
+            lista.add("Proceso " + proceso.getNombre());
             lista.add("Tiempo de espera: " + tiempoDeEspera(proceso));
             lista.add("Tiempo de retorno: " + tiempoDeRetorno(proceso));
             lista.add("Tiempo de respuesta: " + tiempoDeRespuesta(proceso));
