@@ -1,3 +1,5 @@
+package planificadores.proceso;
+
 public class Proceso {
     private String nombre;
     private Integer prioridad;
