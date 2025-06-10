@@ -28,7 +28,9 @@ public class AsignacionPrioridades extends Planificador {
 
             resultado.add(lista2);
         }
+        System.out.println("Diagrama: ");
         System.out.println(getPlanificadorLista());
+        System.out.println("Informacion de los procesos:");
         return resultado;
     }
 }

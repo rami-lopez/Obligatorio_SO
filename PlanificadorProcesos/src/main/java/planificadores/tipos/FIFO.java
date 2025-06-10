@@ -27,7 +27,9 @@ public class FIFO extends Planificador {
 
             listaARetornar.add(lista);
         }
+        System.out.println("Diagrama: ");
         System.out.println(getPlanificadorLista());
+        System.out.println("Informacion de los procesos:");
         return listaARetornar;
     }
 }
