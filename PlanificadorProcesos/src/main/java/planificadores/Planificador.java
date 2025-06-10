@@ -32,7 +32,13 @@ public class Planificador {
         }
         return suma;
     }
-    
+
+    // ver el diagrama en forma de lista
+
+    public List<String> getPlanificadorLista() {
+        return planificadorLista;
+    }
+
 
     // Calculos de tiempo
     

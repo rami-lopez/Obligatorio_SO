@@ -27,7 +27,7 @@ public class FIFO extends Planificador {
 
             listaARetornar.add(lista);
         }
-
+        System.out.println(getPlanificadorLista());
         return listaARetornar;
     }
 }

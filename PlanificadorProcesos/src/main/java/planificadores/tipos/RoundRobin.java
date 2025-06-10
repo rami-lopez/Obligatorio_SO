@@ -40,6 +40,7 @@ public class RoundRobin extends Planificador {
             lista.add("Tiempo de respuesta: " + tiempoDeRespuesta(proceso));
             listaARetornar.add(lista);
         }
+        System.out.println(getPlanificadorLista());
         return listaARetornar;
     }
 }
