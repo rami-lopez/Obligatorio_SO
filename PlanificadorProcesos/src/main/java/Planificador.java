@@ -79,6 +79,38 @@ public class Planificador {
         return listaARetornar;
     }
 
+    public List<List<String>> RR(int quantum){
+        planificadorLista.clear();
+        List<List<String>> listaARetornar = new ArrayList<>();
+        Queue<Proceso> colaRR = new LinkedList<>(colaProcesos);
+
+        //int tiempo = 0;
+        while (!colaRR.isEmpty()) {
+            Proceso proceso = colaRR.poll();
+
+            int rafagaAUsar = Math.min(quantum, proceso.getRafaga());
+            for (int i = 0; i < rafagaAUsar; i++) {
+                planificadorLista.add(proceso.getNombre());
+                //tiempo++;
+            }
+
+            proceso.ejecutar(rafagaAUsar);
+
+            if (proceso.getRafaga() > 0) {
+                colaRR.add(proceso);
+            }
+        }
+
+        for (Proceso proceso : colaProcesos){
+            List<String> lista = new ArrayList<>();
+            lista.add(proceso.getNombre());
+            lista.add("Tiempo de espera: " + tiempoDeEspera(proceso));
+            lista.add("Tiempo de retorno: " + tiempoDeRetorno(proceso));
+            lista.add("Tiempo de respuesta: " + tiempoDeRespuesta(proceso));
+            listaARetornar.add(lista);
+        }
+        return listaARetornar;
+    }
 
     public int tiempoDeEspera(Proceso proceso){
         int espera = 0;
