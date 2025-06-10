@@ -9,13 +9,19 @@ public class Planificador {
     }
 
     public void verProcesos(){
+        System.out.println("\n");
         for (Proceso proceso : colaProcesos){
             System.out.println(proceso.getNombre());
         }
+        System.out.println("\n");
     }
 
     public List<Proceso> getColaProcesos() {
         return colaProcesos;
+    }
+
+    public void setColaProcesosNull() {
+        this.colaProcesos.clear();
     }
 
     public int setSumaDeProcesos() {
@@ -27,46 +33,32 @@ public class Planificador {
         return suma;
     }
 
-    public void bubbleSortPorLlegada(List<Proceso> listaProcesos) {
-        int n = listaProcesos.size();
-        boolean huboIntercambio;
-
-        for (int i = 0; i < n - 1; i++) {
-            huboIntercambio = false;
-
-            for (int j = 0; j < n - 1 - i; j++) {
-                Proceso p1 = listaProcesos.get(j);
-                Proceso p2 = listaProcesos.get(j + 1);
-
-                if (p1.getLlegada() > p2.getLlegada()) {
-                    // Intercambiar
-                    listaProcesos.set(j, p2);
-                    listaProcesos.set(j + 1, p1);
-                    huboIntercambio = true;
-                }
-            }
-
-            if (!huboIntercambio) break;
-        }
-    }
-
-    public List<List<String>> asignacionPridoridades(){
+    public List<List<String>> asignacionPridoridades() {
         planificadorLista.clear();
-        Stack<Proceso> stackPrioridad = new Stack<>();
+        // lista original copiada para no modificar la cola original
+        List<Proceso> copia = new ArrayList<>(colaProcesos);
+        bubbleSortPorPrioridad(copia);
+        List<List<String>> resultado = new ArrayList<>();
+        for (Proceso proceso : copia) {
+            planificadorLista.add(proceso.getNombre());
+            //agregar todas a la lista de listas
+            List<String> lista2 = new ArrayList<>();
+            lista2.add(proceso.getNombre());
+            lista2.add(proceso.getPrioridad().toString());
+            lista2.add("Tiempo de espera: " + tiempoDeEspera(proceso));
+            lista2.add("Tiempo de retorno: " + tiempoDeRetorno(proceso));
+            lista2.add("Tiempo de respuesta: " + tiempoDeRespuesta(proceso));
 
-        Proceso mayorPrioridad = null;
-        for (Proceso proceso : colaProcesos) {
-            if (mayorPrioridad == null || proceso.getPrioridad() < mayorPrioridad.getPrioridad()) {
-                mayorPrioridad = proceso;
-                stackPrioridad.add(mayorPrioridad);
-            }
+            resultado.add(lista2);
         }
-        return null; // por ahora
+        return resultado;
     }
+
 
     public List<List<String>> FIFO(){
         planificadorLista.clear();
         List<List<String>> listaARetornar = new ArrayList<>();
+        bubbleSortPorLlegada(colaProcesos);
         for(Proceso proceso : colaProcesos){
             for (int i = 0; i < proceso.getRafaga(); i++){
                 planificadorLista.add(proceso.getNombre());
@@ -87,7 +79,6 @@ public class Planificador {
         return listaARetornar;
     }
 
-    // public List<List<String>>
 
     public int tiempoDeEspera(Proceso proceso){
         int espera = 0;
@@ -122,5 +113,50 @@ public class Planificador {
             }
         }
         return -1;
+    }
+
+    public void bubbleSortPorPrioridad(List<Proceso> listaProcesos) {
+        int n = listaProcesos.size();
+        boolean huboIntercambio;
+
+        for (int i = 0; i < n - 1; i++) {
+            huboIntercambio = false;
+
+            for (int j = 0; j < n - 1 - i; j++) {
+                Proceso p1 = listaProcesos.get(j);
+                Proceso p2 = listaProcesos.get(j + 1);
+
+                if (p1.getPrioridad() > p2.getPrioridad()) {
+                    // Intercambiar
+                    listaProcesos.set(j, p2);
+                    listaProcesos.set(j + 1, p1);
+                    huboIntercambio = true;
+                }
+            }
+
+            if (!huboIntercambio) break;
+        }
+    }
+    public void bubbleSortPorLlegada(List<Proceso> listaProcesos) {
+        int n = listaProcesos.size();
+        boolean huboIntercambio;
+
+        for (int i = 0; i < n - 1; i++) {
+            huboIntercambio = false;
+
+            for (int j = 0; j < n - 1 - i; j++) {
+                Proceso p1 = listaProcesos.get(j);
+                Proceso p2 = listaProcesos.get(j + 1);
+
+                if (p1.getLlegada() > p2.getLlegada()) {
+                    // Intercambiar
+                    listaProcesos.set(j, p2);
+                    listaProcesos.set(j + 1, p1);
+                    huboIntercambio = true;
+                }
+            }
+
+            if (!huboIntercambio) break;
+        }
     }
 }
