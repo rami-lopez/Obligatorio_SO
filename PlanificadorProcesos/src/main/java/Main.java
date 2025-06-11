@@ -2,6 +2,7 @@ import planificadores.tipos.AsignacionPrioridades;
 import planificadores.tipos.FIFO;
 import planificadores.proceso.Proceso;
 import planificadores.tipos.RoundRobin;
+import planificadores.tipos.SJF;
 
 
 public class Main {
@@ -11,6 +12,7 @@ public class Main {
         FIFO fifoPlan = new FIFO();
         RoundRobin rrPlan = new RoundRobin();
         AsignacionPrioridades asPriPlan = new AsignacionPrioridades();
+        SJF sjfPlan = new SJF();
 
         //FIFO
         System.out.println("\n");
@@ -60,5 +62,20 @@ public class Main {
 
         System.out.println(rrPlan.RRPlanificador(2));
         rrPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+
+
+        //SJF
+        System.out.println("\n");
+        System.out.println("SJF:");
+        System.out.println();
+        Proceso p7 = new Proceso("Adaptacion", null, 2, 1);
+        Proceso p8 = new Proceso("Finalizacion", null, 3, 2);
+        Proceso p9 = new Proceso("Creacion", null, 4, 0);
+
+        sjfPlan.agregarAColaProcesos(p9);
+        sjfPlan.agregarAColaProcesos(p8);
+        sjfPlan.agregarAColaProcesos(p7);
+
+        System.out.println(sjfPlan.SJFPlanificador());
     }
 }
