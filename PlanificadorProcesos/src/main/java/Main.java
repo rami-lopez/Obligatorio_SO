@@ -1,8 +1,5 @@
-import planificadores.tipos.AsignacionPrioridades;
-import planificadores.tipos.FIFO;
+import planificadores.tipos.*;
 import planificadores.proceso.Proceso;
-import planificadores.tipos.RoundRobin;
-import planificadores.tipos.SJF;
 
 
 public class Main {
@@ -13,6 +10,7 @@ public class Main {
         RoundRobin rrPlan = new RoundRobin();
         AsignacionPrioridades asPriPlan = new AsignacionPrioridades();
         SJF sjfPlan = new SJF();
+        SRTF srtfPLan = new SRTF();
 
         //FIFO
         System.out.println("\n");
@@ -77,5 +75,20 @@ public class Main {
         sjfPlan.agregarAColaProcesos(p7);
 
         System.out.println(sjfPlan.SJFPlanificador());
+
+
+        //SRTF
+        System.out.println("\n");
+        System.out.println("SRTF:");
+        System.out.println();
+        Proceso p10 = new Proceso("Adaptación", null, 4, 5);
+        Proceso p11 = new Proceso("Finalización", null, 7, 2);
+        Proceso p12 = new Proceso("Creación", null, 10, 8);
+
+        srtfPLan.agregarAColaProcesos(p11);
+        srtfPLan.agregarAColaProcesos(p10);
+        srtfPLan.agregarAColaProcesos(p12);
+
+        System.out.println(srtfPLan.SRTFPlanificador());
     }
 }
