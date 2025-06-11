@@ -37,9 +37,9 @@ public class Main {
         System.out.println("Asignacion por prioridades:");
         System.out.println();
 
-        Proceso a1 = new Proceso("Prioridad media", 5, 7, 2);
-        Proceso a2 = new Proceso("Menor prioridad", 15, 2, 5);
-        Proceso a3 = new Proceso("Mas prioridad", 1, 10, 0);
+        Proceso a1 = new Proceso("Prioridad media", 5, 7, 5);
+        Proceso a2 = new Proceso("Menor prioridad", 15, 7, 2);
+        Proceso a3 = new Proceso("Mas prioridad", 1, 10, 8);
         asPriPlan.agregarAColaProcesos(a1);
         asPriPlan.agregarAColaProcesos(a2);
         asPriPlan.agregarAColaProcesos(a3);
