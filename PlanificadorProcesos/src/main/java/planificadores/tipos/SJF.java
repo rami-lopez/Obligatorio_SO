@@ -13,8 +13,9 @@ public class SJF extends Planificador {
         bubbleSortPorLlegada(procesos);
         int tiempo = 0;
         int ejecutados = 0;
+        int total = procesos.size();
 
-        for (int ejecutado = 0; ejecutado < Integer.MAX_VALUE && ejecutados < procesos.size(); ejecutado++) {
+        for (int ejecutado = 0; ejecutado < Integer.MAX_VALUE && ejecutados < total; ejecutado++) {
             Proceso procesoActual = null;
             int menorRafaga = Integer.MAX_VALUE; //Al poner esto, aseguramos que en la primera iteracion del segundo for, se tome la rafaga del primer proceso.
             for (Proceso p : procesos) {
