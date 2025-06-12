@@ -1,6 +1,8 @@
 import planificadores.tipos.*;
 import planificadores.proceso.Proceso;
 
+import java.util.Random;
+
 
 public class Main {
     public static void main(String[] args){
@@ -27,6 +29,20 @@ public class Main {
 
         System.out.println(fifoPlan.FIFOPlanificador());
         fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
+
+        // Procesos autogenerados
+        System.out.println("FIFO con procesos generados automaticamente:");
+        System.out.println();
+        for (int i = 0; i < 5; i++){
+            Proceso p = generarProcesoRandom(false);
+            fifoPlan.agregarAColaProcesos(p);
+            System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + " y llegada en " + p.getLlegada());
+        }
+        System.out.println();
+        System.out.println(fifoPlan.FIFOPlanificador());
+        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
 
 
         // Asignacion por prioridades
@@ -44,6 +60,20 @@ public class Main {
 
         System.out.println(asPriPlan.asignacionPridoridadesPlanificador());
         asPriPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
+
+        // Procesos autogenerados
+        System.out.println("Prioridades con procesos generados automaticamente:");
+        System.out.println();
+        for (int i = 0; i < 5; i++){
+            Proceso p = generarProcesoRandom(true);
+            asPriPlan.agregarAColaProcesos(p);
+            System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + ", prioridad de" + p.getPrioridad() + " y llegada en " + p.getLlegada());
+        }
+        System.out.println();
+        System.out.println(asPriPlan.asignacionPridoridadesPlanificador());
+        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
 
 
         // RR
@@ -60,6 +90,25 @@ public class Main {
 
         System.out.println(rrPlan.RRPlanificador(2));
         rrPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
+
+        // Procesos autogenerados
+        System.out.println("Round Robin con procesos generados automaticamente:");
+        System.out.println();
+        for (int i = 0; i < 5; i++){
+            Proceso p = generarProcesoRandom(false);
+            rrPlan.agregarAColaProcesos(p);
+            System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + " y llegada en " + p.getLlegada());
+        }
+        Random rand = new Random();
+        int quantumRandom = rand.nextInt(10) + 1;
+        System.out.println();
+        System.out.println("Quantum de " + quantumRandom);
+        System.out.println(rrPlan.RRPlanificador(quantumRandom));
+        System.out.println();
+        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
+
 
 
         //SJF
@@ -75,6 +124,21 @@ public class Main {
         sjfPlan.agregarAColaProcesos(p7);
 
         System.out.println(sjfPlan.SJFPlanificador());
+        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
+
+        // Procesos autogenerados
+        System.out.println("SJF con procesos generados automaticamente:");
+        System.out.println();
+        for (int i = 0; i < 5; i++){
+            Proceso p = generarProcesoRandom(false);
+            sjfPlan.agregarAColaProcesos(p);
+            System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + " y llegada en " + p.getLlegada());
+        }
+        System.out.println();
+        System.out.println(sjfPlan.SJFPlanificador());
+        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
 
 
         //SRTF
@@ -90,5 +154,37 @@ public class Main {
         srtfPLan.agregarAColaProcesos(p12);
 
         System.out.println(srtfPLan.SRTFPlanificador());
+        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        System.out.println();
+
+        // Procesos autogenerados
+        System.out.println("SRTF con procesos generados automaticamente:");
+        System.out.println();
+        for (int i = 0; i < 5; i++){
+            Proceso p = generarProcesoRandom(false);
+            srtfPLan.agregarAColaProcesos(p);
+            System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + " y llegada en " + p.getLlegada());
+        }
+        System.out.println();
+        System.out.println(srtfPLan.SRTFPlanificador());
+        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+    }
+
+    public static Proceso generarProcesoRandom(boolean tienePrioridad) {
+        Random rand = new Random();
+        Integer prioridad;
+        String[] nombresBase = { "Carga", "Lectura", "Compilacion", "Comparacion", "Analisis", "Validacion", "Actualizacion"};
+
+        String nombre = nombresBase[rand.nextInt(nombresBase.length)];
+        if (tienePrioridad) {
+            prioridad = rand.nextInt(10) + 1;
+        }
+        else {
+            prioridad = null;
+        }
+        int rafaga = rand.nextInt(9) + 2;
+        int llegada = rand.nextInt(6);
+
+        return new Proceso(nombre, prioridad, rafaga, llegada);
     }
 }
