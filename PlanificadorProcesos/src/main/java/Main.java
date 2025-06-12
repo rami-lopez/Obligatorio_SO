@@ -80,9 +80,9 @@ public class Main {
         System.out.println("\n");
         System.out.println("Round Robin:");
         System.out.println();
-        Proceso p4 = new Proceso("Adaptacion", null, 3, 1);
-        Proceso p5 = new Proceso("Finalizacion", null, 2, 2);
-        Proceso p6 = new Proceso("Creacion", null, 2, 0);
+        Proceso p4 = new Proceso("P1", null, 6, 0);
+        Proceso p5 = new Proceso("P2", null, 4, 2);
+        Proceso p6 = new Proceso("P3", null, 2, 4);
 
         rrPlan.agregarAColaProcesos(p4);
         rrPlan.agregarAColaProcesos(p5);
