@@ -13,11 +13,6 @@ public class Planificador {
         colaProcesos.add(proceso);
     }
 
-    public void verProcesos(){
-        for (Proceso proceso : colaProcesos){
-            System.out.println(proceso.getNombre());
-        }
-    }
 
     // Metodo para limpiar la cola de prioridades (para nuevos tipos de planificadores)
     public void setColaProcesosNull() {

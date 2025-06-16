@@ -72,7 +72,7 @@ public class Main {
         }
         System.out.println();
         System.out.println(asPriPlan.asignacionPridoridadesPlanificador());
-        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        asPriPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
         System.out.println();
 
 
@@ -106,7 +106,7 @@ public class Main {
         System.out.println("Quantum de " + quantumRandom);
         System.out.println(rrPlan.RRPlanificador(quantumRandom));
         System.out.println();
-        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        rrPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
         System.out.println();
 
 
@@ -124,7 +124,7 @@ public class Main {
         sjfPlan.agregarAColaProcesos(p7);
 
         System.out.println(sjfPlan.SJFPlanificador());
-        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        sjfPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
         System.out.println();
 
         // Procesos autogenerados
@@ -137,7 +137,7 @@ public class Main {
         }
         System.out.println();
         System.out.println(sjfPlan.SJFPlanificador());
-        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        sjfPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
         System.out.println();
 
 
@@ -154,7 +154,7 @@ public class Main {
         srtfPLan.agregarAColaProcesos(p12);
 
         System.out.println(srtfPLan.SRTFPlanificador());
-        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        srtfPLan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
         System.out.println();
 
         // Procesos autogenerados
@@ -167,7 +167,7 @@ public class Main {
         }
         System.out.println();
         System.out.println(srtfPLan.SRTFPlanificador());
-        fifoPlan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+        srtfPLan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
     }
 
     public static Proceso generarProcesoRandom(boolean tienePrioridad) {
