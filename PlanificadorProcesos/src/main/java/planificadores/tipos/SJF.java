@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SJF extends Planificador {
     public List<List<String>> SJFPlanificador() {
-        planificadorLista.clear();
+        planificadorLista.clear();                              //Quitamos los procesos que quedaron de otros planificadores
         List<List<String>> listaARetornar = new ArrayList<>();
         List<Proceso> procesos = new ArrayList<>(colaProcesos);
         bubbleSortPorLlegada(procesos);
@@ -15,9 +15,12 @@ public class SJF extends Planificador {
         int ejecutados = 0;
         int total = procesos.size();
 
+        // Se ejecuta mientras haya procesos pendientes
         for (int ejecutado = 0; ejecutado < Integer.MAX_VALUE && ejecutados < total; ejecutado++) {
             Proceso procesoActual = null;
-            int menorRafaga = Integer.MAX_VALUE; //Al poner esto, aseguramos que en la primera iteracion del segundo for, se tome la rafaga del primer proceso.
+            int menorRafaga = Integer.MAX_VALUE; //Se usa para encontrar el proceso con la menor ráfaga entre los disponibles
+
+            // Buscar el proceso disponible con la ráfaga más corta
             for (Proceso p : procesos) {
                 if (p.getLlegada() <= tiempo && p.getRafagaUltima() < menorRafaga) {
                     procesoActual = p;
@@ -25,12 +28,12 @@ public class SJF extends Planificador {
                 }
             }
             if (procesoActual == null) {
-                // No hay procesos disponibles aún → CPU ociosa
+                // No hay procesos disponibles todavía, CPU ociosa
                 planificadorLista.add(" ");
                 tiempo++;
-                continue;
+                continue; // Volver al inicio del bucle
             }
-
+                // Ejecutar el proceso seleccionado durante toda su ráfaga (ya que no es apropiativo)
                 for (int j = 0; j < procesoActual.getRafagaUltima(); j++) {
                     planificadorLista.add(procesoActual.getNombre());
                     tiempo++;
@@ -39,6 +42,8 @@ public class SJF extends Planificador {
                 procesos.remove(procesoActual);
                 ejecutados++;
             }
+
+            // imprimir resultados
             for (Proceso proceso : colaProcesos) {
                 //agregar todas a la lista de listas
                 List<String> lista = new ArrayList<>();

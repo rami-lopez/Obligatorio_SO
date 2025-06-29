@@ -19,11 +19,12 @@ public class SRTF extends Planificador {
         while (procesosFinalizados < totalProcesos) {
             Proceso elegido = null;
 
+            //Siempre que llegue un proceso con menor ráfaga, el mismo se va a ejecutar
             for (Proceso p : colaProcesos) {
                 if (p.getLlegada() <= tiempoActual && p.getRafaga() > 0) {
                     if (elegido == null || p.getRafaga() < elegido.getRafaga()) {
                         elegido = p;
-                    } else if (p.getRafaga() == elegido.getRafaga()) {
+                    } else if (p.getRafaga() == elegido.getRafaga()) { //Si las ráfagas restantes son iguales, se ejecuta el que ya estaba siendo ejecutado
                         if (p == ultimoEjecutado) {
                             elegido = p;
                         }
@@ -32,7 +33,7 @@ public class SRTF extends Planificador {
             }
 
             if (elegido != null) {
-                elegido.ejecutar(1);
+                elegido.ejecutar(1);  //Ejecuta de a una ráfaga para poder verificar si llega otro proceso más corto
                 planificadorLista.add(elegido.getNombre());
                 ultimoEjecutado = elegido;
 
@@ -43,10 +44,10 @@ public class SRTF extends Planificador {
                 planificadorLista.add(" "); // nada ejecutando
                 ultimoEjecutado = null;
             }
-
             tiempoActual++;
         }
 
+        // imprimir resultados
         for (Proceso proceso : colaProcesos) {
             List<String> lista2 = new ArrayList<>();
             lista2.add("Proceso " + proceso.getNombre());

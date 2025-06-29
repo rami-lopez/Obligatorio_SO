@@ -18,6 +18,7 @@ public class AsignacionPrioridades extends Planificador {
         while (procesosFinalizados < totalProcesos) {
             Proceso elegido = null;
 
+            //Siempre que llegue un proceso con mayor prioridad, el mismo se va a ejecutar
             for (Proceso p : colaProcesos) {
                 if (p.getLlegada() <= tiempoActual && p.getRafaga() > 0) {
                     if (elegido == null || p.getPrioridad() < elegido.getPrioridad()) {
@@ -27,7 +28,7 @@ public class AsignacionPrioridades extends Planificador {
             }
 
             if (elegido != null) {
-                elegido.ejecutar(1);
+                elegido.ejecutar(1);  //Ejecuta de a una ráfaga para poder verificar si llega otro proceso de mayor prioridad
                 planificadorLista.add(elegido.getNombre());
 
                 if (elegido.getRafaga() == 0) {
@@ -40,6 +41,7 @@ public class AsignacionPrioridades extends Planificador {
             tiempoActual++;
         }
 
+        //imprimir resultados
         for (Proceso proceso : colaProcesos) {
             List<String> lista2 = new ArrayList<>();
             lista2.add("Proceso " + proceso.getNombre());

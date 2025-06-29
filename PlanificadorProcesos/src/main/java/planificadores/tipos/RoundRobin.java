@@ -62,7 +62,7 @@ public class RoundRobin extends Planificador {
             }
         }
 
-
+        // imprimir resultados
         for (Proceso proceso : colaProcesos){
             List<String> lista = new ArrayList<>();
             lista.add("Proceso " + proceso.getNombre());

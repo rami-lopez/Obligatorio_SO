@@ -11,12 +11,16 @@ public class FIFO extends Planificador {
         planificadorLista.clear();
         List<List<String>> listaARetornar = new ArrayList<>();
         bubbleSortPorLlegada(colaProcesos);
+
+        //Mientras hayan procesos disponibles, ejecuta su ráfaga entera en orden de llegada
         for(Proceso proceso : colaProcesos){
             for (int i = 0; i < proceso.getRafaga(); i++){
                 planificadorLista.add(proceso.getNombre());
             }
             proceso.ejecutar(proceso.getRafaga());
         }
+
+        // imprimir resultados
         for (Proceso proceso : colaProcesos){
             //agregar todas a la lista de listas
             List<String> lista = new ArrayList<>();

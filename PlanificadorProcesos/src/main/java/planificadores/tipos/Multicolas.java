@@ -14,8 +14,9 @@ public class Multicolas extends Planificador {
 
     private final int quantumRR = 2;
 
-    public void MulticolasPlanificador() {
+    public List<List<String>> MulticolasPlanificador() {
         planificadorLista.clear();
+        List<List<String>> listaARetornar = new ArrayList<>();
         for (Proceso p : colaProcesos) {
             rafagasRestantes.put(p.getNombre(), p.getRafaga());
             rafagasOriginales.put(p.getNombre(), p.getRafaga());
@@ -139,18 +140,19 @@ public class Multicolas extends Planificador {
         }
 
         // imprimir resultados
-        for (Proceso p : colaProcesos) {
-            int tiempoRetorno = planificadorLista.lastIndexOf(p.getNombre()) + 1 - p.getLlegada();
-            int tiempoEspera = tiempoRetorno - rafagasOriginales.get(p.getNombre());
-            int tiempoRespuesta = tiempoPrimeraEjecucion.get(p.getNombre()) - p.getLlegada();
+        for (Proceso proceso : colaProcesos) {
+            //agregar todas a la lista de listas
+            List<String> lista = new ArrayList<>();
+            lista.add("Proceso " + proceso.getNombre());
+            lista.add("Tiempo de espera: " + tiempoDeEspera(proceso));
+            lista.add("Tiempo de retorno: " + tiempoDeRetorno(proceso));
+            lista.add("Tiempo de respuesta: " + tiempoDeRespuesta(proceso));
 
-            System.out.println("Proceso " + p.getNombre());
-            System.out.println("  - Tiempo de retorno: " + tiempoRetorno);
-            System.out.println("  - Tiempo de espera: " + tiempoEspera);
-            System.out.println("  - Tiempo de respuesta: " + tiempoRespuesta);
+            listaARetornar.add(lista);
         }
+        System.out.println("Diagrama: ");
+        System.out.println(getPlanificadorLista());
 
-        System.out.println("\nDiagrama:");
-        System.out.println(planificadorLista);
+        return listaARetornar;
     }
 }
