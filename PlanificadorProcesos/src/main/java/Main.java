@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args){
-
         // Instanciar/crear los tipos
         FIFO fifoPlan = new FIFO();
         RoundRobin rrPlan = new RoundRobin();
@@ -168,6 +167,18 @@ public class Main {
         System.out.println();
         System.out.println(srtfPLan.SRTFPlanificador());
         srtfPLan.setColaProcesosNull(); // setear la cola en null para otro tipo de procesos
+
+
+        // Multicolas
+        Multicolas planificador = new Multicolas();
+
+        planificador.agregarAColaProcesos(new Proceso("A", 0, 4, 0)); // RR, (quantum 2, se puede cambiar en la clase Multicolas)
+        planificador.agregarAColaProcesos(new Proceso("B", 1, 3, 1)); // SJF
+        planificador.agregarAColaProcesos(new Proceso("C", 2, 5, 2)); // FIFO
+        planificador.agregarAColaProcesos(new Proceso("D", 0, 3, 3)); // RR
+        planificador.agregarAColaProcesos(new Proceso("E", 1, 2, 5)); // SJF
+
+        planificador.MulticolasPlanificador();
     }
 
     public static Proceso generarProcesoRandom(boolean tienePrioridad) {
