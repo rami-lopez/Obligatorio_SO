@@ -73,31 +73,8 @@ public class Planificador {
     }
 
     
-    // Bubble sort para ordenar por prioridad o llegada la cola de procesos
-    
-    
-    public void bubbleSortPorPrioridad(List<Proceso> listaProcesos) {
-        int n = listaProcesos.size();
-        boolean huboIntercambio;
+    // Bubble sort para ordenar por llegada la cola de procesos
 
-        for (int i = 0; i < n - 1; i++) {
-            huboIntercambio = false;
-
-            for (int j = 0; j < n - 1 - i; j++) {
-                Proceso p1 = listaProcesos.get(j);
-                Proceso p2 = listaProcesos.get(j + 1);
-
-                if (p1.getPrioridad() > p2.getPrioridad()) {
-                    // Intercambiar
-                    listaProcesos.set(j, p2);
-                    listaProcesos.set(j + 1, p1);
-                    huboIntercambio = true;
-                }
-            }
-
-            if (!huboIntercambio) break;
-        }
-    }
     public void bubbleSortPorLlegada(List<Proceso> listaProcesos) {
         int n = listaProcesos.size();
         boolean huboIntercambio;
