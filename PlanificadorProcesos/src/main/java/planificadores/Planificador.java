@@ -64,12 +64,13 @@ public class Planificador {
     }
 
     public int tiempoDeRespuesta(Proceso proceso){
-        for (String p : planificadorLista){
-            if (proceso.getNombre().equals(p)){
-                return planificadorLista.indexOf(p) - proceso.getLlegada();
-            }
+        int index = planificadorLista.indexOf(proceso.getNombre());
+        if (index != -1 && index >= proceso.getLlegada()) {
+            return index - proceso.getLlegada();
+        } else {
+            // Si el proceso empieza antes de llegar, devolvemos -1
+            return -1;
         }
-        return -1;
     }
 
     

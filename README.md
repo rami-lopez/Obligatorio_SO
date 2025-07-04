@@ -86,7 +86,7 @@ este método que genera procesos con rafagas y prioridades distintas cada vez, a
 - Método *ejecutar* en Proceso: La manera que tenemos de simular una ejecución en este proyecto es creando este método que simplemente disminuye la ráfaga.
 - Atributos *rafaga* y *rafagaUltima* en Proceso: Debido a que decidimos calcular los tiempos de cada proceso, necesitabamos tener el valor de laráfaga de
 dicho proceso; sin embargo, ya que los tiempos es algo que se calcula una vez ejecutados todos los procesos, ya que el método ejecutar disminuía la rafaga, 
-no podiamos acceder al valor inicial. Por eso creamos un valo de ráfaga inmutable (rafaga) y otro con el que simulamos la ejecución (rafagaUltima).
+no podiamos acceder al valor inicial. Por eso creamos un valor de ráfaga inmutable (rafaga) y otro con el que simulamos la ejecución (rafagaUltima).
 - Atributo *planificadorLista* en Planificador: Para poder crear el diagrama del orden de los procesos debimos guardar en una lista los nombres de los mismos
 y el orden en el que aparecen. En cada método se limpia esta lista por si quedaron los procesos de otro planificador que la haya usado. Decidimos que todos
 utilizaran la misma para evitar generar una en cada planificador y así ahorrar espacio de memoria.

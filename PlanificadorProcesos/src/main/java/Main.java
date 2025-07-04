@@ -1,7 +1,7 @@
 import planificadores.tipos.*;
 import planificadores.proceso.Proceso;
 
-import java.util.Random;
+import java.util.*;
 
 
 public class Main {
@@ -34,7 +34,7 @@ public class Main {
         System.out.println("FIFO con procesos generados automaticamente:");
         System.out.println();
         for (int i = 0; i < 5; i++){
-            Proceso p = generarProcesoRandom(false);
+            Proceso p = GeneradorDeProcesos.generarProcesoRandom(false);
             fifoPlan.agregarAColaProcesos(p);
             System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + " y llegada en " + p.getLlegada());
         }
@@ -65,7 +65,7 @@ public class Main {
         System.out.println("Prioridades con procesos generados automaticamente:");
         System.out.println();
         for (int i = 0; i < 5; i++){
-            Proceso p = generarProcesoRandom(true);
+            Proceso p = GeneradorDeProcesos.generarProcesoRandom(true);
             asPriPlan.agregarAColaProcesos(p);
             System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + ", prioridad de" + p.getPrioridad() + " y llegada en " + p.getLlegada());
         }
@@ -95,7 +95,7 @@ public class Main {
         System.out.println("Round Robin con procesos generados automaticamente:");
         System.out.println();
         for (int i = 0; i < 5; i++){
-            Proceso p = generarProcesoRandom(false);
+            Proceso p = GeneradorDeProcesos.generarProcesoRandom(false);
             rrPlan.agregarAColaProcesos(p);
             System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + " y llegada en " + p.getLlegada());
         }
@@ -130,7 +130,7 @@ public class Main {
         System.out.println("SJF con procesos generados automaticamente:");
         System.out.println();
         for (int i = 0; i < 5; i++){
-            Proceso p = generarProcesoRandom(false);
+            Proceso p = GeneradorDeProcesos.generarProcesoRandom(false);
             sjfPlan.agregarAColaProcesos(p);
             System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + " y llegada en " + p.getLlegada());
         }
@@ -160,7 +160,7 @@ public class Main {
         System.out.println("SRTF con procesos generados automaticamente:");
         System.out.println();
         for (int i = 0; i < 5; i++){
-            Proceso p = generarProcesoRandom(false);
+            Proceso p = GeneradorDeProcesos.generarProcesoRandom(false);
             srtfPLan.agregarAColaProcesos(p);
             System.out.println("Proceso " + p.getNombre() + " creado con rafaga de " + p.getRafaga() + " y llegada en " + p.getLlegada());
         }
@@ -181,21 +181,69 @@ public class Main {
         planificador.MulticolasPlanificador();
     }
 
-    public static Proceso generarProcesoRandom(boolean tienePrioridad) {
-        Random rand = new Random();
-        Integer prioridad;
-        String[] nombresBase = { "Carga", "Lectura", "Compilacion", "Comparacion", "Analisis", "Validacion", "Actualizacion"};
+//    public static Proceso generarProcesoRandom(boolean tienePrioridad) {
+//        Random rand = new Random();
+//        Integer prioridad;
+//        String[] nombresBase = { "Carga", "Lectura", "Compilacion", "Comparacion", "Analisis", "Validacion", "Actualizacion"};
+//        Map<String, Integer> contadorNombres = new HashMap<>();
+//
+//        String base = nombresBase[rand.nextInt(nombresBase.length)];
+//
+//        int sufijo = contadorNombres.getOrDefault(base, 1);
+//        contadorNombres.put(base, sufijo + 1);
+//        String nombre = base + "_" + sufijo;
+//
+//        if (tienePrioridad) {
+//            prioridad = rand.nextInt(10) + 1;
+//        }
+//        else {
+//            prioridad = null;
+//        }
+//        int rafaga = rand.nextInt(9) + 2;
+//        int llegada = rand.nextInt(6);
+//
+//        contadorNombres.clear();
+//        return new Proceso(nombre, prioridad, rafaga, llegada);
+//    }
+public class GeneradorDeProcesos {
+    private static final Random rand = new Random();
+    private static final String[] nombresBase = {
+            "Carga", "Lectura", "Compilacion", "Comparacion", "Analisis", "Validacion", "Actualizacion"
+    };
+    private static final Map<String, Integer> contadorNombres = new HashMap<>();
+    private static final Set<String> nombresUsados = new HashSet<>();
 
-        String nombre = nombresBase[rand.nextInt(nombresBase.length)];
+    public static Proceso generarProcesoRandom(boolean tienePrioridad) {
+        Integer prioridad;
+        String base = nombresBase[rand.nextInt(nombresBase.length)];
+        String nombre;
+
+        // Asegurarse de que el nombre sea único
+        int sufijo = contadorNombres.getOrDefault(base, 1);
+        do {
+            nombre = base + "_" + sufijo;
+            sufijo++;
+        } while (nombresUsados.contains(nombre));
+
+        contadorNombres.put(base, sufijo);
+        nombresUsados.add(nombre);
+
         if (tienePrioridad) {
             prioridad = rand.nextInt(10) + 1;
-        }
-        else {
+        } else {
             prioridad = null;
         }
+
         int rafaga = rand.nextInt(9) + 2;
         int llegada = rand.nextInt(6);
 
         return new Proceso(nombre, prioridad, rafaga, llegada);
     }
+
+    public static void reiniciarContadores() {
+        contadorNombres.clear();
+        nombresUsados.clear();
+    }
+}
+
 }
